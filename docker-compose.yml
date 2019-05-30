@@ -23,27 +23,26 @@ services:
       MYSQL_ROOT_PASSWORD: password
     ports:
       - 3307:3306
-  nginx:
-    image: bitnami/nginx:1.10.2-r1
-    volumes:
-      - ./config/nginx:/bitnami/nginx/conf/vhosts
-    depends_on:
-      - backend
-      - frontend
-    environment:
-      VIRTUAL_HOST: yourproject.docker
-      VIRTUAL_PORT: 8080
-    ports:
-      - 8080:8080
+  # nginx:
+  #   image: bitnami/nginx:1.10.2-r1
+  #   volumes:
+  #     - ./config/nginx:/bitnami/nginx/conf/vhosts
+  #   depends_on:
+  #     - backend
+  #     - frontend
+  #   environment:
+  #     VIRTUAL_HOST: yourproject.docker
+  #     VIRTUAL_PORT: 8080
+  #   ports:
+  #     - 8080:8080
   frontend:
-    build:
-      context: ./frontend/
+    build: ./frontend/
     depends_on:
       - backend
     command: yarn start
     volumes:
-      - ./frontend/:/usr/src/frontend-app
-      - modules:/usr/src/frontend-app/node_modules
+      - ./frontend/:/frontend-app
+      - node-modules:/frontend-app/node_modules
     ports:
       - "4000:4000"
 volumes:

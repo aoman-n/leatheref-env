@@ -1,9 +1,10 @@
 FROM node:10
-WORKDIR /usr/src/frontend-app
+RUN mkdir /frontend-app
+WORKDIR /frontend-app
 COPY package*.json ./
 COPY yarn.lock ./
 RUN yarn install
-COPY . .
-EXPOSE 4000
+COPY . /frontend-app
+# EXPOSE 4000
 
 CMD ["yarn", "start"]
