@@ -20,45 +20,35 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  # describe 'ユーザー登録' do
-  #   before do
-  #     puts 'before'
-  #   end
 
-  #   context 'should be valid' do
-  #     before do
-  #     end
+  it "有効な名前、Emailアドレス、パスワード、パスワード確認があればUserを作成出来ること" do
+    user = User.new(
+      name: "Aoba",
+      email: "aobatest@example.com",
+      password: "password",
+      password_confirmation: "password"
+    )
+    expect(user).to be_valid
+  end
 
-  #     it 'base' do
-  #       # user = User.new(name: "Example User", email: "user@example.com",
-  #       #   password: 'password', password_confirmation: 'password')
-  #       user = FactoryBot.build(:aoba)
-  #       expect(user).to be_valid
-  #     end
-  #   end
-  # end
+  # バリデーションチェック
+  # name
+  it { is_expected.to validate_presence_of :name }
+  it { is_expected.to validate_length_of(:name).is_at_most(20) }
+  # email
+  it { is_expected.to validate_presence_of :email }
+  it { is_expected.to validate_length_of(:email).is_at_most(250) }
+  # it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
+  # it { is_expected.to validate_presence_of :last_name }
+  # password
+  it { is_expected.to have_secure_password }
+  it { is_expected.to validate_length_of(:password).is_at_least(6) }
 
-  # describe '四則演算' do
-  #   it '全部できること' do
-  #     expect(1 + 2).to eq 3
-  #     expect(10 - 1).to eq 9
-  #     expect(4 * 8).to eq 32
-  #     expect(40 / 5).to eq 8
-  #   end
-  # end
+  it "emailが小文字に変換後DBに保存されること" do
+    user = FactoryBot.create(:user, email: 'ExamPle@example.com')
+    expect(user.reload.email).to eq "example@example.com"
+  end
 
-  describe 'ここにはクラスもかける' do
-    describe '#age ageメソッドをテストする' do
-      before do
-        puts '毎回呼ばれる'
-      end
-
-      context '条件や状況1' do
-        puts '1'
-      end
-      context '条件や状況2' do
-        puts '2'
-      end
-    end
+  it "" do
   end
 end
