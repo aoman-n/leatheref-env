@@ -9,5 +9,7 @@ module.exports = merge(common, {
     contentBase: path.join(__dirname, '/dist'),
     historyApiFallback: true,
     port: 4000,
+    inline: true,          // http:localhost:8080/webpack-dev-server/ではなくhtttp:localhost:8080/でアクセスできるようになる。
+    host:"0.0.0.0"         // ※ dockerのコンテナで立てたサーバが他のホストからアクセスできるように全てのネットワークインターフェースに接続
   },
 });

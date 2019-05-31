@@ -42,13 +42,13 @@ services:
     command: yarn start
     volumes:
       - ./frontend/:/frontend-app
-      - node-modules:/frontend-app/node_modules
+      - /frontend-app/node_modules
+    environment:
+      - NODE_ENV=development
     ports:
       - "4000:4000"
 volumes:
   db-volume:
     driver: local
   bundle-volume:
-    driver: local
-  node-modules:
     driver: local
