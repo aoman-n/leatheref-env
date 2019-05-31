@@ -13,7 +13,9 @@
 
 Rails.application.routes.draw do
 
-  namespace :api do
+  root to: 'application#hello'
+
+  scope :api do
     get '/hello', to: 'application#hello'
     post '/login', to: 'sessions#create'
     delete '/logout', to: 'sessions#destroy'

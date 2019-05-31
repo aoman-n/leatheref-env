@@ -6,10 +6,10 @@ COPY package*.json /frontend-app
 
 ENV PATH /frontend-app/node_modules/.bin:$PATH
 # COPY yarn.lock /frontend-app
-# RUN yarn install
-RUN npm install --silent
+RUN yarn install --silent
+# RUN npm install --silent
 COPY . /frontend-app
 # EXPOSE 4000
 
-# CMD ["yarn", "start"]
-CMD ["npm", "start"]
+CMD ["yarn", "start"]
+# CMD ["npm", "start"]
