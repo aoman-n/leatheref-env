@@ -19,32 +19,23 @@
 
 FactoryBot.define do
 
-  factory :admin_user, class: User do
+  factory :user, class: User do
     name { 'adminuser' }
     email { 'adminuser@example.com' }
     password { 'password' }
     password_confirmation { 'password' }
-    admin { true }
+    admin { false }
     activated { true }
     activated_at { Time.zone.now }
-  end
 
-  factory :user do
-    name { 'user' }
-    email { 'user@example.com' }
-    password { 'password' }
-    password_confirmation { 'password' }
-    activated { true }
-    activated_at { Time.zone.now }
-  end
+    trait :admin do
+      admin { true }
+    end
 
-  factory :aoba, class: User do
-    name { 'aoba' }
-    email { 'aoba@example.com' }
-    password { 'password' }
-    password_confirmation { 'password' }
-    activated { true }
-    activated_at { Time.zone.now }
+    trait :not_activate do
+      activated { false }
+      activated_at { nil }
+    end
   end
 
 end
