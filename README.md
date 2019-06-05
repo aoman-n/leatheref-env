@@ -1,6 +1,11 @@
-# leatheref
+# leatheref-env
 
 ## usage
+
+```
+git clone https://github.com/laster18/leatheref-api-server
+git clone https://github.com/laster18/letheref-front
+```
 
 ```
 docker-compose build
