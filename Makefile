@@ -3,6 +3,9 @@ RAILS = $(CMD) exec backend rails
 CURRENT_DIR = $(shell pwd | sed -e "s/\/cygdrive//g")
 BACKEND = leatheref-api-server
 
+ps:
+	$(CMD) ps
+
 down:
 	$(CMD) down
 
