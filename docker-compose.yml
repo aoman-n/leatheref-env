@@ -13,9 +13,12 @@ services:
       MYSQL_ROOT_PASSWORD: password
     depends_on:
       - db
+      - redis
     tty: true
     stdin_open: true
+
   db:
+    restart: always
     image: mysql:5.7
     volumes:
       - db-volume:/var/lib/mysql
@@ -23,33 +26,45 @@ services:
       MYSQL_ROOT_PASSWORD: password
     ports:
       - 3307:3306
+
+  redis:
+    restart: always
+    image: redis:5.0-alpine
+    volumes:
+      - ./redis:/data
+    ports:
+      - 6379:6379
+
   nginx:
+    restart: always
     image: bitnami/nginx:1.10.2-r1
     volumes:
       - ./config/nginx:/bitnami/nginx/conf/vhosts
     depends_on:
       - backend
-      - frontend
+      # - frontend
     environment:
       VIRTUAL_HOST: yourproject.docker
       VIRTUAL_PORT: 8080
     ports:
       - 8080:8080
-  frontend:
-    build:
-      context: ./letheref-front/
-      dockerfile: Dockerfile
-      # dockerfile: Dockerfile-prod
-    depends_on:
-      - backend
-    command: yarn start
-    volumes:
-      - ./letheref-front:/frontend-app
-      - /frontend-app/node_modules
-    environment:
-      - NODE_ENV=development
-    ports:
-      - 4000:4000
+
+  # frontend:
+  #   build:
+  #     context: ./letheref-front/
+  #     dockerfile: Dockerfile
+  #     # dockerfile: Dockerfile-prod
+  #   depends_on:
+  #     - backend
+  #   command: yarn start
+  #   volumes:
+  #     - ./letheref-front:/frontend-app
+  #     - /frontend-app/node_modules
+  #   environment:
+  #     - NODE_ENV=development
+  #   ports:
+  #     - 4000:4000
+
 volumes:
   db-volume:
     driver: local
