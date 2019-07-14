@@ -61,5 +61,5 @@ routes:
 spec:
 	$(CMD) exec backend rspec
 
-bin:
+in:
 	$(CMD) exec backend bash
