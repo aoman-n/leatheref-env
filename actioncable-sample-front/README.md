@@ -1,0 +1,1 @@
+actioncableを使ったサンプル
